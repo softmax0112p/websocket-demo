@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>WebSocket demo - Text Area</title>
+
+    <link rel="stylesheet" href="demo.css"/>
+    <script src="websocket.js"></script>
+  </head>
+
+  <body>
+    <textarea rows="40" cols="80"></textarea>
+
+    <script>
+      var textarea = document.querySelector('textarea');
+
+      // initially populate the textarea with the contents of data.txt from the
+      // server
+      fetch("/data.txt").then((response) => {
+	response.text().then((body) => {
+	  textarea.value = body;
+	})
+      });
+
+      // whenever the textarea changes, send the new value to the server
+      textarea.addEventListener('input', (event) => {
+	fetch("/data.txt", {method: 'POST', body: textarea.value});
+      });
+
+      // whenever data is received, update textarea with the value
+      subscribe('text', (data) => { textarea.value = data });
+    </script>
+  </body>
+</html>

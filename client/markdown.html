@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>WebSocket demo - Markdown</title>
+
+    <link rel="stylesheet" href="demo.css"/>
+    <script src="websocket.js"></script>
+  </head>
+
+  <body>
+    <script>
+      // initially populate the textarea with the converted markdown obtained
+      // from the server
+      fetch("/data.html").then((response) => {
+        response.text().then((body) => { document.body.innerHTML = body; })
+      });
+
+      // whenever data is received, update body with the data
+      subscribe('html', (data) => { document.body.innerHTML = data });
+    </script>
+  </body>
+</html>

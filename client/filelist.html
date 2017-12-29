@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>WebSocket demo - File List</title>
+
+    <link rel="stylesheet" href="demo.css"/>
+    <script src="websocket.js"></script>
+    <script src="vue.min.js"></script>
+  </head>
+
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>name</th>
+          <th>size</th>
+          <th>date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-for="file in filelist">
+          <td>{{ file.name }}</td>
+          <td>{{ file.size }}</td>
+          <td>{{ file.mtime }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      var app = new Vue({el: 'tbody', data: {filelist: []}});
+
+      fetch('filelist.json').then((response) => {
+        response.json().then((json) => { app.filelist = json });
+      });
+
+      subscribe('json', (data) => { app.filelist = JSON.parse(data) });
+    </script>
+  </body>
+</html>

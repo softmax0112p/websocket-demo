@@ -1,0 +1,10 @@
+{
+  "package": "websocket-demo",
+  "version": "0.1.0",
+  "dependencies": {
+    "express": "*",
+    "marked": "*",
+    "vue": "*",
+    "websocket": "*"
+  }
+}
